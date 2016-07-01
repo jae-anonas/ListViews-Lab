@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -62,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 View view = convertView;
                 if (view == null){
                     LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    view = inflater.inflate(android.R.layout.simple_list_item_2, null);
+                    view = inflater.inflate(R.layout.listtemplate, null);
                 }
-                TextView txt1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView txt2 = (TextView) view.findViewById(android.R.id.text2);
+                TextView txt1 = (TextView) view.findViewById(R.id.txt_view1);
+                TextView txt2 = (TextView) view.findViewById(R.id.txt_view2);
+                ImageView img_view = (ImageView) view.findViewById(R.id.img_view);
                 txt1.setText("Title: " + mBookList.get(position).getTitle());
                 txt2.setText("Author: " + mBookList.get(position).getAuthor());
+                img_view.setImageResource(mBookList.get(position).getResourceId());
 
                 return view;
             }
@@ -76,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView txt1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView txt2 = (TextView) view.findViewById(android.R.id.text2);
+                TextView txt1 = (TextView) view.findViewById(R.id.txt_view1);
+                TextView txt2 = (TextView) view.findViewById(R.id.txt_view2);
                 txt1.setTextColor(Color.parseColor("#FF0000"));
                 txt2.setTextColor(Color.parseColor("#FF0000"));
             }
@@ -89,16 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //android:src="@android:drawable/sym_def_app_icon"
+
     //Method to generate a list of Books
     private List<Book> generateBooks(){
         List<Book> books = new ArrayList<>();
 
-        books.add(new Book("Apples Book","Brad"));
-        books.add(new Book("Cats Book","Ryan"));
-        books.add(new Book("Eagles Book","Kate"));
-        books.add(new Book("Strawberries Cathy","Brad"));
-        books.add(new Book("Dogs Book","Tom"));
-        books.add(new Book("Ants Book","Zane"));
+        books.add(new Book("Apples Book","Brad", android.R.drawable.sym_def_app_icon));
+        books.add(new Book("Cats Book","Ryan", android.R.drawable.sym_action_call));
+        books.add(new Book("Eagles Book","Kate", android.R.drawable.sym_action_chat));
+        books.add(new Book("Strawberries Cathy","Brad", android.R.drawable.sym_action_email));
+        books.add(new Book("Dogs Book","Tom", android.R.drawable.sym_call_incoming));
+        books.add(new Book("Ants Book","Zane", android.R.drawable.sym_contact_card));
 
         return books;
     }
